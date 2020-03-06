@@ -41,7 +41,7 @@ export default class WheelPicker extends React.Component<Props> {
   render() {
     const { isCyclic, data } = this.props
     return (
-      <View pointerEvents={this.props.disabled ? "none" : "auto"}>
+      <View pointerEvents={this.props.disabled ? "none" : "auto"}  style={{width:this.props.width || 250}}>
         <WheelPickerView
           {...this.props}
           isCyclic={data.length > 2 ? isCyclic : false}
