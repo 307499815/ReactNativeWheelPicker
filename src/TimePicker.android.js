@@ -68,18 +68,18 @@ export default class TimePicker extends React.Component<Props, State> {
           isCyclic
           // style={styles.wheelPicker}
           {...this.props}
+          selectedItem={selectedHourIndex}
           data={hours}
           onItemSelected={this.onHourSelected}
-          selectedItem={selectedHourIndex}
           initPosition={selectedHourIndex}
         />
         <WheelPicker
           // style={styles.wheelPicker}
           isCyclic
           {...this.props}
+          selectedItem={selectedMinuteIndex}
           data={minutes}
           onItemSelected={this.onMinuteSelected}
-          selectedItem={selectedMinuteIndex}
           initPosition={selectedMinuteIndex}
         />
         {!this.props.format24 && this.renderAm()}
@@ -94,9 +94,10 @@ export default class TimePicker extends React.Component<Props, State> {
       <WheelPicker
         style={styles.wheelPicker}
         {...this.props}
+        selectedItem={selectedAmIndex}
         data={getAmArray()}
         onItemSelected={this.onAmSelected}
-        selectedItem={selectedAmIndex}
+       
         initPosition={selectedAmIndex}
       />
     )
