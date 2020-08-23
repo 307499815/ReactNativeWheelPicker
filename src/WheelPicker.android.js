@@ -32,6 +32,20 @@ export default class WheelPicker extends React.Component<Props> {
     },
   }
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      pickerKey:1
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    if(!this.props.data || !prevProps.data) return;
+    if(this.props.data.length != prevProps.data.length || this.props.initPosition != prevProps.initPosition) {
+      this.setState({pickerKey:this.state.pickerKey+1});
+    }
+  }
+
   onItemSelected = (event: any) => {
     if (this.props.onItemSelected) {
       this.props.onItemSelected(event.nativeEvent.position)
