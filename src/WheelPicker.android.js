@@ -57,6 +57,7 @@ export default class WheelPicker extends React.Component<Props> {
     return (
         <WheelPickerView
           {...this.props}
+          key={`wheel-picker-key-${this.state.pickerKey}`}
           isCyclic={data.length > 2 ? isCyclic : false}
           onChange={this.onItemSelected}
         />
