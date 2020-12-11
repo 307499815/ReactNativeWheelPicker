@@ -179,7 +179,7 @@ public class LoopView extends View {
 
     protected final void itemSelected() {
         if (loopListener != null) {
-            postDelayed(new LoopRunnable(this), 200L);
+            postDelayed(new LoopRunnable(this), 10L);
         }
     }
 
