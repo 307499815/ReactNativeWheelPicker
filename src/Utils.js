@@ -47,7 +47,7 @@ export function increaseDateByDays(date: Date, numOfDays: ?number) {
     return nextDate
 }
 
-export function pickerDateArray(date: string, daysCount: number = YEAR, datePickerFormat: string = DEFAULT_DATE_PICKER_FORMAT) {
+export function pickerDateArray(date: string, daysCount: number = YEAR, datePickerFormat: string = DEFAULT_DATE_PICKER_FORMAT, todayTitle: string = TODAY) {
     const startDate = date ? new Date(date) : new Date()
     const arr = []
 
@@ -55,7 +55,7 @@ export function pickerDateArray(date: string, daysCount: number = YEAR, datePick
         const ithDateFromStartDate = (Date.parse(startDate) / ONE_SECOND) + (i * ONE_DAY_IN_SECONDS)
         if (moment.unix(Date.parse(new Date()) / ONE_SECOND).format('MM/DD/YYYY') ===
             moment.unix(ithDateFromStartDate).format('MM/DD/YYYY')) {
-            arr.push(TODAY)
+            arr.push(todayTitle)
         }
         else {
             arr.push(
