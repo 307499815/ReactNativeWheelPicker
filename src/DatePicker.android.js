@@ -31,7 +31,8 @@ type Props = {
   hideHours?: boolean,
   hideMinutes?: boolean,
   hideAM?: boolean,
-  format?: string
+  format?: string,
+  todayTitle?: string,
 }
 
 type State = {
@@ -99,6 +100,7 @@ export default class DatePicker extends React.Component<Props, State> {
       hideMinutes,
       hideAM,
       format,
+      todayTitle,
     } = this.props
     const { initHourInex, initDayInex, initMinuteInex } = this.state
     return (
@@ -106,7 +108,7 @@ export default class DatePicker extends React.Component<Props, State> {
         {!hideDate && <WheelPicker
           style={styles.dateWheelPicker}
           {...this.props}
-          data={days || pickerDateArray(startDate, daysCount, format)}
+          data={days || pickerDateArray(startDate, daysCount, format, todayTitle)}
           onItemSelected={this.onDaySelected}
           initPosition={initDayInex}
         />}
