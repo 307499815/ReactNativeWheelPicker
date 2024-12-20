@@ -185,12 +185,12 @@ public class LoopView extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        String as[];
+        Item as[];
         if (arrayList == null) {
             super.onDraw(canvas);
             return;
         }
-        as = new String[itemCount];
+        as = new Item[itemCount];
         change = (int) (totalScrollY / (lineSpacingMultiplier * maxTextHeight));
         preCurrentIndex = initPosition + change % arrayList.size();
         if (!isLoop) {
@@ -222,13 +222,13 @@ public class LoopView extends View {
                 if (l1 > arrayList.size() - 1) {
                     l1 = l1 - arrayList.size();
                 }
-                as[k1] = (String) arrayList.get(l1);
+                as[k1] = new Item(l1, (String) arrayList.get(l1));
             } else if (l1 < 0) {
-                as[k1] = "";
+                as[k1] = new Item(l1, "");
             } else if (l1 > arrayList.size() - 1) {
-                as[k1] = "";
+                as[k1] = new Item(l1, "");
             } else {
-                as[k1] = (String) arrayList.get(l1);
+                as[k1] = new Item(l1,(String) arrayList.get(l1));
             }
             k1++;
         }
@@ -252,28 +252,28 @@ public class LoopView extends View {
                     canvas.save();
                     //top = 0,left = (measuredWidth - maxTextWidth)/2
                     canvas.clipRect(0, 0, measuredWidth, firstLineY - translateY);
-                    drawCenter(canvas, paintA, as[j1],maxTextHeight);
+                    drawCenter(canvas, paintA, as[j1].text,maxTextHeight);
                     canvas.restore();
                     canvas.save();
                     canvas.clipRect(0, firstLineY - translateY, measuredWidth, (int) (itemHeight));
-                    drawCenter(canvas, paintB, as[j1], maxTextHeight);
+                    drawCenter(canvas, paintB, as[j1].text, maxTextHeight);
                     canvas.restore();
                 } else if (translateY <= secondLineY && maxTextHeight + translateY >= secondLineY) {
                     canvas.save();
                     canvas.clipRect(0, 0, measuredWidth, secondLineY - translateY);
-                    drawCenter(canvas, paintB, as[j1], maxTextHeight);
+                    drawCenter(canvas, paintB, as[j1].text, maxTextHeight);
                     canvas.restore();
                     canvas.save();
                     canvas.clipRect(0, secondLineY - translateY, measuredWidth, (int) (itemHeight));
-                    drawCenter(canvas, paintA, as[j1],maxTextHeight);
+                    drawCenter(canvas, paintA, as[j1].text,maxTextHeight);
                     canvas.restore();
                 } else if (translateY >= firstLineY && maxTextHeight + translateY <= secondLineY) {
                     canvas.clipRect(0, 0, measuredWidth, (int) (itemHeight));
-                    drawCenter(canvas, paintB, as[j1],maxTextHeight);
-                    selectedItem = arrayList.indexOf(as[j1]);
+                    drawCenter(canvas, paintB, as[j1].text,maxTextHeight);
+                    selectedItem = as[j1].index;
                 } else {
                     canvas.clipRect(0, 0, measuredWidth, (int) (itemHeight));
-                    drawCenter(canvas, paintA, as[j1],maxTextHeight);
+                    drawCenter(canvas, paintA, as[j1].text,maxTextHeight);
                 }
                 canvas.restore();
             }
@@ -415,6 +415,16 @@ public class LoopView extends View {
         totalScrollY = (int) ((float) (position - initPosition) * (lineSpacingMultiplier * maxTextHeight));
         invalidate();
         smoothScroll();
+    }
+
+    public static class Item {
+        public int index;
+        public String text;
+
+        public Item(int index, String text) {
+            this.index = index;
+            this.text = text;
+        }
     }
 
 }
